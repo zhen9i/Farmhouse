@@ -1,4 +1,4 @@
-package Animal;
+package animal;
 
 import javafx.animation.Interpolator;
 import javafx.animation.Transition;

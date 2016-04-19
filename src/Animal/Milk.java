@@ -1,4 +1,8 @@
-package Animal;
+package animal;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,27 +15,30 @@ import javafx.scene.layout.Pane;
  */
 
 public class Milk extends Pane {
-  private final String EGGIMG = "Milk.jpg";
+  private final String EGGIMG = "Milk.png";
   private Image IMAGE;
   private ImageView imageview;
   private BorderPane borderPane;
   private boolean pickedup = false;
 
-  Milk(BorderPane p, double x, double y) {
-    borderPane = p;
+  public Milk(BorderPane pane, double translateX, double translateY) {
+    borderPane = pane;
     IMAGE = new Image(getClass().getResourceAsStream(EGGIMG));
     imageview = new ImageView(IMAGE);
-    imageview.setTranslateX(x + IMAGE.getHeight());
-    imageview.setTranslateY(y + IMAGE.getWidth());
-    setTranslateX(x);
-    setTranslateY(y);
+    imageview.setTranslateX(translateX + IMAGE.getHeight());
+    imageview.setTranslateY(translateY + IMAGE.getWidth());
+    setTranslateX(translateX);
+    setTranslateY(translateY);
     imageview.setOnMouseClicked(event -> {
-      borderPane.getChildren().removeAll(imageview);
-      pickedup = true;
+      pickUp();
     });
     borderPane.getChildren().add(imageview);
   }
 
+  public Milk(BorderPane p, DataInputStream iStream) throws IOException {
+    this(p, iStream.readDouble(), iStream.readDouble());
+  }
+  
   public boolean isPickedUp() {
     return pickedup;
   }
@@ -39,5 +46,15 @@ public class Milk extends Pane {
   public void pickUp() {
     borderPane.getChildren().removeAll(imageview);
     pickedup = true;
+  }
+  
+  public void save(DataOutputStream oStream) {
+    try {
+      oStream.writeDouble(getTranslateX());
+      oStream.writeDouble(getTranslateY());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    
   }
 }

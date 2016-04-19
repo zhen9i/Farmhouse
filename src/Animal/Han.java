@@ -1,8 +1,10 @@
-package Animal;
+package animal;
 
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.util.LinkedList;
 
-import Animal.AnimationConstant.Direction;
+import animal.AnimationConstant.Direction;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -19,18 +21,27 @@ public class Han extends Animal {
   private final static String sprite = "Han.png";
   private boolean eggready;
   private final int DELAYEGG = 15000;
-  private Timeline timeline;
+  private Timeline timeline = new Timeline(
+      new KeyFrame(Duration.millis(DELAYEGG), ae -> setEggready(true)));
 
-  public Han(int x, int y) {
-    super(sprite, x, y);
-    timeline = new Timeline(
-        new KeyFrame(Duration.millis(DELAYEGG), ae -> setEggready(true)));
+  public Han(int screenW, int screenH) {
+    super(sprite, screenW, screenH);
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
     super.randColor();
-    animation.play();
+    directionthread.start();
   }
 
+  public Han(int screenW, int screenH, DataInputStream iStream) {
+    super(sprite, screenW, screenH, iStream);
+    timeline.setCycleCount(Animation.INDEFINITE);
+    try {
+      setColor(iStream.readInt());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    timeline.play();
+  }
 
   public void putEgg(BorderPane p, LinkedList<Egg> eggs) {
     if (eggready && direction == Direction.STOP) {

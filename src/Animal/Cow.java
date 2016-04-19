@@ -1,8 +1,10 @@
-package Animal;
+package animal;
 
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.util.LinkedList;
 
-import Animal.AnimationConstant.Direction;
+import animal.AnimationConstant.Direction;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -21,22 +23,31 @@ public class Cow extends Animal {
   private final int COLORCOUNT = 3;
 
   private boolean milkready;
-  Timeline timeline;
+  Timeline timeline = new Timeline(
+      new KeyFrame(Duration.millis(MILKDELAY), ae -> setMilkReady(true)));
 
-  public Cow(int x, int y) {
-    super(sprite, x, y);
-    timeline = new Timeline(
-        new KeyFrame(Duration.millis(MILKDELAY), ae -> setMilkReady(true)));
+  public Cow(int screenW, int screenH) {
+    super(sprite, screenW, screenH);
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
     randColor();
+    directionthread.start();
+  }
+  
+  public Cow(int screenW, int screenH, DataInputStream iStream) {
+    super(sprite, screenW, screenH, iStream);
+    timeline.setCycleCount(Animation.INDEFINITE);
+    try {
+      setColor(iStream.readInt());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    timeline.play();
   }
 
   public void randColor() {
     int color = rand.nextInt(COLORCOUNT);
-    offsetX = AnimationConstant.WIDTH_48 * AnimationConstant.COUNT * color;
-    animation.setOffsetX(offsetX);
-    animation.setOffsetY(offsetY);
+    setColor(color);
   }
 
   public void putMilk(BorderPane p, LinkedList<Milk> milk) {

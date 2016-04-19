@@ -1,4 +1,8 @@
-package Animal;
+package animal;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,19 +21,22 @@ public class Egg extends Pane {
   private final BorderPane borderPane;
   private boolean pickedup = false;
 
-  Egg(BorderPane p, double x, double y) {
-    borderPane = p;
+  public Egg(BorderPane pane, double translateX, double translateY) {
+    borderPane = pane;
     IMAGE = new Image(getClass().getResourceAsStream(EGGIMG));
     imageview = new ImageView(IMAGE);
-    setTranslateX(x);
-    setTranslateY(y);
-    imageview.setTranslateX(x);
-    imageview.setTranslateY(y);
+    setTranslateX(translateX);
+    setTranslateY(translateY);
+    imageview.setTranslateX(translateX);
+    imageview.setTranslateY(translateY);
     imageview.setOnMouseClicked(event -> {
-      borderPane.getChildren().removeAll(imageview);
-      pickedup = true;
+      pickUp();
     });
     borderPane.getChildren().add(imageview);
+  }
+
+  public Egg(BorderPane pane, DataInputStream iStream) throws IOException {
+    this(pane, iStream.readDouble(), iStream.readDouble());
   }
 
   public boolean isPickedUp() {
@@ -39,5 +46,15 @@ public class Egg extends Pane {
   public void pickUp() {
     borderPane.getChildren().removeAll(imageview);
     pickedup = true;
+  }
+  
+  public void save(DataOutputStream oStream) {
+    try {
+      oStream.writeDouble(getTranslateX());
+      oStream.writeDouble(getTranslateY());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    
   }
 }
