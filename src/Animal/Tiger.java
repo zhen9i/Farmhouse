@@ -12,7 +12,7 @@ import animal.AnimationConstant.Direction;
 
 public class Tiger extends Animal {
 
-  private final static String sprite = "Tiger.png";
+  private final static String sprite = "/resources/Tiger.png";
 
   public Tiger(int screenW, int screenH) {
     super(sprite, screenW, screenH);

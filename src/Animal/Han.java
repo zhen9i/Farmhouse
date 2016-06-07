@@ -18,7 +18,7 @@ import javafx.util.Duration;
 
 public class Han extends Animal {
 
-  private final static String sprite = "Han.png";
+  private final static String sprite = "/resources/Han.png";
   private boolean eggready;
   private final int DELAYEGG = 15000;
   private Timeline timeline = new Timeline(

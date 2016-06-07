@@ -17,6 +17,8 @@ public interface AnimationConstant {
   public final int RANDTIME = 10;
   public final int RANDCOLOR = 8;
   public final int MAXHEALTHPOINT = 100;
+  public final int ICON = 64;
+  public final int SPEED_MAX = 5;
 
   public enum Direction {
     DOWN(0), LEFT(1), RIGHT(2), UP(3), STOP(4);
@@ -45,4 +47,5 @@ public interface AnimationConstant {
       return waterLevel;
     }
   }
+  
 }

@@ -18,7 +18,7 @@ import javafx.util.Duration;
 
 public class Cow extends Animal {
 
-  private final static String sprite = "Cow.png";
+  private final static String sprite = "/resources/Cow.png";
   private final int MILKDELAY = 60000;
   private final int COLORCOUNT = 3;
 

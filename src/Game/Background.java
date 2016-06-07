@@ -19,7 +19,7 @@ public class Background {
 
 
   public Background(BorderPane p, String s, int w, int h) {
-    IMAGE = new Image(getClass().getResource(s).toString());
+    IMAGE = new Image(getClass().getResourceAsStream(s));
     imgview = new ImageView(IMAGE);
     WIDTH = w;
     HEIGHT = h;

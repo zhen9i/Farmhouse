@@ -10,7 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 public class Barrel extends Pane {
-  private final String BARREL = "Barrel.png";
+  private final String BARREL = "/resources/Barrel.png";
   private final Image IMAGE;
   private int SCREENWIDTH;
   private int SCREENHEIGHT;

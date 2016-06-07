@@ -15,7 +15,7 @@ import javafx.scene.layout.Pane;
  */
 
 public class Egg extends Pane {
-  private final String EGGIMG = "Egg.png";
+  private final String EGGIMG = "/resources/Egg.png";
   private Image IMAGE;
   private ImageView imageview;
   private final BorderPane borderPane;

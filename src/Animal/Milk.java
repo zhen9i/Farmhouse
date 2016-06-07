@@ -15,7 +15,7 @@ import javafx.scene.layout.Pane;
  */
 
 public class Milk extends Pane {
-  private final String EGGIMG = "Milk.png";
+  private final String EGGIMG = "/resources/Milk.png";
   private Image IMAGE;
   private ImageView imageview;
   private BorderPane borderPane;
